@@ -22,7 +22,7 @@
     </appender>
 -->
 
-    <!-- Comentado por mi --- es para prod
+    <!-- Comentado por mi es para prod
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>
@@ -50,7 +50,7 @@
     <logger name="sun.rmi.transport" level="WARN"/>-->
 
     <!-- https://logback.qos.ch/manual/configuration.html#shutdownHook and https://jira.qos.ch/browse/LOGBACK-1090 -->
-    <!--  Comentado por mi --- es para prod
+    <!--  Comentado por mi es para prod
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
