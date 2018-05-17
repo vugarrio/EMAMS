@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: post-service
-#  profiles:
-#    active: @environment.value@
+  profiles:
+    active: local  #TODO: poner con @environment.value@
+    #active: @environment.value@
     
