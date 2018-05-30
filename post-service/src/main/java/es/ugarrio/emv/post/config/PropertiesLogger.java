@@ -25,6 +25,12 @@ public class PropertiesLogger {
         logger.info("*********** APPLICATION NAME: {} ", environment.getProperty("spring.application.name"));
         logger.info("*********** INFO TEST: {} ", environment.getProperty("app.info"));
         logger.info("******************************************");
+        
+        
+        logger.debug("----> debug: This is a debug message");
+        logger.info("----> info: This is an info message");
+        logger.warn("----> warn: This is a warn message");
+        logger.error("----> error: This is an error message");
 
 	}
 }

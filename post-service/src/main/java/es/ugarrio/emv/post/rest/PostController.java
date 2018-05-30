@@ -48,7 +48,7 @@ public class PostController {
      * @return the ResponseEntity with status 200 (OK) and with body the post, or with status 404 (Not Found)
      */
     @GetMapping("/{id:.+}")
-    public ResponseEntity<Post> get(@PathVariable String id) {
+    public ResponseEntity<Post> getPost(@PathVariable String id) {
         return ResponseUtil.wrapOrNotFound(postService.find(id));
     }
 

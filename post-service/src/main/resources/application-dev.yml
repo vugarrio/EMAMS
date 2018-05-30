@@ -11,4 +11,18 @@ spring:
             database: emv_ms_users
             
 app:
-  info: application-dev.yml            
+  info: application-dev.yml    
+  
+  
+
+#logs:     # ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF
+logging:
+  file: logs/post-service.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    es.ugarrio.emv: DEBUG
+    org.mongodb: DEBUG
+         

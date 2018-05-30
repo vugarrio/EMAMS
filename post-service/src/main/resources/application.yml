@@ -8,3 +8,13 @@ spring:
     active: local  #TODO: poner con @environment.value@
     #active: @environment.value@
     
+    
+  
+#logs:     # ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF       
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    #org.springframework: INFO
+    es.ugarrio.emv: INFO
+    #org.mongodb: INFO
