@@ -31,6 +31,10 @@ public class PostService {
     public Post create (Post newPost) {
         return postRespository.save(newPost);
     }
+    
+    public Post create2 () {
+    	return null;
+    }
 
 
     /**
@@ -73,3 +77,9 @@ public class PostService {
         });
     }
 }
+
+
+// Hacer asi:  https://github.com/ryanmccormick/spring-boot-rest-best-practices/blob/master/src/main/java/com/example/service/ContactServiceImpl.java
+
+// Control de errores:  https://github.com/ryanmccormick/spring-boot-rest-best-practices/blob/master/src/main/java/com/example/exceptions/ExceptionHandlers.java
+

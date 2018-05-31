@@ -21,6 +21,7 @@ import es.ugarrio.emv.post.service.PostService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,7 +48,7 @@ public class PostControllerTest {
 	private Pageable pageRequest;
 	
 	@Before
-	public void prepare() {
+	public void septup() {
 		Sort sort = new Sort(Sort.Direction.ASC, "title");
         pageRequest = new PageRequest(0, 10, sort);
 	}
@@ -61,7 +62,8 @@ public class PostControllerTest {
 		
 		// Tambien se puede hacer asi
 		Optional<Post> post = postService.find("1");
-		assertThat(post).isEqualTo(Optional.of(createPost()));		
+		assertThat(post).isEqualTo(Optional.of(createPost()));
+		
 	}
 	
 	
@@ -101,5 +103,11 @@ public class PostControllerTest {
 	
 	
 	// https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/query-methods/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoSearchControllerTest.java
+	
+	// Hacer asi:  https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/query-methods/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoControllerTest.java
+	
+	
+	// Test a nivel de Integracion:  https://github.com/ryanmccormick/spring-boot-rest-best-practices/tree/master/src/test/java/com/example
+	
 	
 }

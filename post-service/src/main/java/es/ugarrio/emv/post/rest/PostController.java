@@ -95,3 +95,8 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 }
+
+
+
+// Test a nivel de integracion:
+//      https://github.com/ryanmccormick/spring-boot-rest-best-practices/blob/master/src/test/java/com/example/integration/contacts/UpdateContactsTest.java
