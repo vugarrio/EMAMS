@@ -2,13 +2,16 @@ package es.ugarrio.emv.user.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 
-@AllArgsConstructor
+
 @Data
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class UserNotFoundException extends Exception {
     
-    private String id;
+    private static final long serialVersionUID = 8073629781213964638L;
+	private String id;
 
 
 }
