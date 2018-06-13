@@ -100,6 +100,13 @@ public class PostControllerTest {
 		return post;
 	}
 	
+	///// Ejemplo post:
+	//// https://github.com/hantsy/angularjs-springmvc-sample/blob/master/src/test/java/com/hantsylabs/restexample/springmvc/test/web/MockPostControllerTest.java
+	
+	
+	// Tambien mirar:
+	// https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/query-methods/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoSearchControllerTest.java
+	// https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/query-methods/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoControllerTest.java
 	
 	
 	// https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/query-methods/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoSearchControllerTest.java
