@@ -21,10 +21,14 @@ import java.util.Optional;
 @RequestMapping("/api/posts")
 public class PostController {
 
-    @Autowired
-    PostService postService;
+    private final PostService postService;
 
     private final Logger log = LoggerFactory.getLogger(PostController.class);
+
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     /**
      * GET /posts : get all posts.
@@ -96,6 +100,11 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 }
+
+
+
+//    Hacer con hateoas
+//   https://github.com/jonyfs/credit-card-api/tree/master/src/main/java/br/com/jonyfs/credit/card/api
 
 
 
