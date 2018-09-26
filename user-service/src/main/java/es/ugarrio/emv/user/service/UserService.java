@@ -41,8 +41,7 @@ public class UserService {
     
     @Autowired
     private AuthorityRepository authorityRepository;
-    
-    
+        
     
     public void existOrFail(String... ids) throws UserNotFoundException {
         for (String id : ids) {
