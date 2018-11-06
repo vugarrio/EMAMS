@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import es.ugarrio.emv.post.service.dto.PostDTO;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -108,7 +109,7 @@ public class PostControllerTest {
 	 
 	 @Test
      public void shouldReturnOneTodoEntryAsJson() throws Exception {
-		 Post newPost = createPost("1");
+		 PostDTO newPost = createPost("1");
 		 given( postService.findAll(isA(Pageable.class))).willReturn(createPage(1));
          mockMvc.perform(get(URL)
         		 .param("page", String.valueOf(PAGE_NUMBER))
@@ -137,13 +138,13 @@ public class PostControllerTest {
 	
 	@Test
 	public void getPostTest() throws Exception {
-		given(postService.find("1")).willReturn(Optional.of(createPost("1")));		
+		given(postService.find("1")).willReturn(Optional.of(createPost("1")));
 		mockMvc.perform(get(URL + "/1").accept(MediaType.APPLICATION_JSON_UTF8_VALUE)).andExpect(status().isOk())
 			.andExpect(jsonPath("$.id", is("1")))
 			.andExpect(jsonPath("$.title", is("Titulo 1")));
 		
 		// Tambien se puede hacer asi
-		Optional<Post> post = postService.find("1");
+		Optional<PostDTO> post = postService.find("1");
 		assertThat(post).isEqualTo(Optional.of(createPost("1")));
 		
 	}
@@ -151,32 +152,32 @@ public class PostControllerTest {
 	
 	@Test
 	public void getPostNotFoundTest() throws Exception {
-		given(postService.find("1")).willReturn(Optional.of(createPost("1")));	
+		given(postService.find("1")).willReturn(Optional.of(createPost("1")));
 		mockMvc.perform(get(URL + "/2").accept(MediaType.APPLICATION_JSON_UTF8_VALUE)).andExpect(status().isNotFound());
 	}
 	
 	
 	//@Test /// Falla
 	@Ignore
-	public void createPost() throws Exception {
-		given(postService.create(isA(Post.class))).willReturn(createPost("1"));	
+	/*public void createPost() throws Exception {
+		given(postService.create(isA(Post.class))).willReturn(createPost(1L));
 		
-		mockMvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(createPost("1"))))
+		mockMvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(createPost(1L))))
         .andExpect(status().isCreated());
 		
-	}
+	}*/
 
-	private Post createPost(String id) {
-		Post post = new Post();
+	private PostDTO createPost(String id) {
+		PostDTO post = new PostDTO();
 		post.setId(id);
 		post.setTitle("Titulo " + id);
 		post.setText("Es el test " + id);
 		return post;
 	}
 	
-	private Page<Post> createPage(int numResults) {
-		List<Post> resultPost = new ArrayList<Post>();
-		Page<Post> resultPage = null;
+	private Page<PostDTO> createPage(int numResults) {
+		List<PostDTO> resultPost = new ArrayList<PostDTO>();
+		Page<PostDTO> resultPage = null;
 		
 		if (numResults > 0 ) {
 			for (int x=1; x <= numResults; x++) {

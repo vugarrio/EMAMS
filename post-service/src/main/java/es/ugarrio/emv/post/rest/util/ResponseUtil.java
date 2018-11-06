@@ -37,4 +37,20 @@ public interface ResponseUtil {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
+    /**
+     * Wrap the optional into a {@link ResponseEntity} with an {@link HttpStatus#OK} status, or if it's empty, it
+     * returns a {@link ResponseEntity} with {@link HttpStatus#BAD_REQUEST}.
+     *
+     * @param <X>           type of the response
+     * @param maybeResponse response to return if present
+     * @return response containing {@code maybeResponse} if present or {@link HttpStatus#BAD_REQUEST}
+     */
+    public static <X> ResponseEntity<X> wrapOrBadRequest(Optional<X> maybeResponse) {
+        return maybeResponse.map(response -> ResponseEntity.ok().body(response))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+
+
 }

@@ -28,7 +28,7 @@ public class Post extends AbstractAuditingEntity implements Serializable {
 
     @NotNull
     @Field("user_id")
-    private String userId;
+    private Long userId;
 
 
 }

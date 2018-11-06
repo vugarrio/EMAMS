@@ -2,6 +2,8 @@ package es.ugarrio.emv.post.service;
 
 import es.ugarrio.emv.post.domain.Post;
 import es.ugarrio.emv.post.repository.PostRespository;
+import es.ugarrio.emv.post.service.dto.PostDTO;
+import es.ugarrio.emv.post.service.mapper.PostMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,57 +19,49 @@ public class PostService {
 
     private final Logger log = LoggerFactory.getLogger(PostService.class);
 
+    private PostRespository postRespository;
+
+    private PostMapper postMapper;
+
     @Autowired
-    PostRespository postRespository;
-
-    public Page<Post> findAll(Pageable pageable) {
-        return postRespository.findAll(pageable);
+    public PostService(PostRespository postRespository, PostMapper postMapper) {
+        this.postRespository = postRespository;
+        this.postMapper = postMapper;
     }
 
-    public Optional<Post> find(String id) {
-        return postRespository.findById(id);
+    public Page<PostDTO> findAll(Pageable pageable) {
+        return postRespository.findAll(pageable).map(
+                post -> postMapper.postToPostDto(post)
+        );
     }
 
-    public Post create (Post newPost) {
-        return postRespository.save(newPost);
-    }
-    
-    public Post create2 () {
-    	return null;
+    public Optional<PostDTO> find(String id) {
+        return postRespository.findById(id).map(
+                post -> postMapper.postToPostDto(post)
+        );
     }
 
+    public PostDTO save(PostDTO postDTO) {
+        log.debug("Request to save Post : {}", postDTO);
+        PostDTO postResult = null;
+        if (null == postDTO.getId()) {
+            postResult = postMapper.postToPostDto(postRespository.save(postMapper.postDTOToPost(postDTO)));
+        } else {
+            postResult = postMapper.postToPostDto(postRespository.findOneById(postDTO.getId()).map(
+                    postBD -> {
+                        postBD.setText(postDTO.getText());
+                        postBD.setTitle(postDTO.getTitle());
+                        //postBD.setLastModifiedBy("xxx");
+                        postBD.setLastModifiedDate(Instant.now());
+                        return postRespository.save(postBD);
+                    }
 
-    /**
-     * Update all information for a specific post, and return the modified post.
-     *
-     * @param postUpdate post to update
-     * @return updated post
-     */
-    public Optional<Post> update(Post postUpdate) {
-
-        Optional<Post> post = postRespository.findOneById(postUpdate.getId());
-        if (post.isPresent()) {
-            post.get().setTitle(postUpdate.getTitle());
-            post.get().setText(postUpdate.getText());
-            post.get().setUserId(postUpdate.getUserId());
-            postRespository.save(post.get());
-            log.debug("Changed Information for Post: {}", post);
+            ).orElse(null));
         }
-
-        return post;
-
-
-       /* return Optional.of(postRespository
-                .findOneById(postUpdate.getId())
-                .ifPresent(post -> {
-                    post.setTitle(postUpdate.getTitle());
-                    post.setText(postUpdate.getText());
-                    post.setUserId(postUpdate.getUserId());
-                    postRespository.save(post);
-                    log.debug("Changed Information for Post: {}", post);
-                   // //return new Optional<Post>(post);
-                }));  */
+        return postResult;
     }
+
+
 
 
     public void delete(String id) {
@@ -78,6 +72,8 @@ public class PostService {
     }
 }
 
+
+// Buen ejempl Jhister:  https://github.com/ivangsa/jhipster-mongodb-sample-projects/blob/master/jhipster-mongodb-with-dto-pagination/src/main/java/com/mycompany/myapp/service/impl/PaymentDetailsServiceImpl.java
 
 // Hacer asi:  https://github.com/ryanmccormick/spring-boot-rest-best-practices/blob/master/src/main/java/com/example/service/ContactServiceImpl.java
 

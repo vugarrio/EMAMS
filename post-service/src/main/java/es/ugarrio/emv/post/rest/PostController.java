@@ -3,6 +3,7 @@ package es.ugarrio.emv.post.rest;
 import es.ugarrio.emv.post.domain.Post;
 import es.ugarrio.emv.post.rest.util.ResponseUtil;
 import es.ugarrio.emv.post.service.PostService;
+import es.ugarrio.emv.post.service.dto.PostDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,20 @@ public class PostController {
      * GET /posts : get all posts.
      *
      * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and with body all post
+     * @return the ResponseEntity with status 200 (OK) and with body all post, or with status 204 (NO_CONTENT)
      */
     @GetMapping
-    public ResponseEntity<Page<Post>> getAllPosts(Pageable pageable) {
+    public ResponseEntity<Page<PostDTO>> getAllPosts(Pageable pageable) {
         log.debug("REST request to get a page of Post");
 
         // Usar esta forma
         //pageable:  page=0&size=3&sort=name&name.dir=desc
-        return new ResponseEntity<>(postService.findAll(pageable), HttpStatus.OK);
+        HttpStatus status = HttpStatus.NO_CONTENT;
+        Page<PostDTO> pagePosts = postService.findAll(pageable);
+        if (pagePosts.hasContent()) {
+            status = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(pagePosts, status);
     }
 
     /**
@@ -53,38 +59,34 @@ public class PostController {
      */
     @GetMapping("/{id:.+}")
     public ResponseEntity<?> getPost(@PathVariable String id) {
-    	ResponseEntity<Post> data = ResponseUtil.wrapOrNotFound(postService.find(id));
-        return ResponseUtil.wrapOrNotFound(postService.find(id));
+    	return ResponseUtil.wrapOrNotFound(postService.find(id));
     }
 
     /**
      * POST  /posts  : Creates a new post.
      *
-     * @param post the post to create
+     * @param postDTO the post to create
      * @return the ResponseEntity with status 201 (Created) and with body the new post
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) throws URISyntaxException {
-        log.debug("REST request to save Post : {}", post);
+    public ResponseEntity<PostDTO> createPost(@Valid @RequestBody PostDTO postDTO) throws URISyntaxException {
+        log.debug("REST request to save postDTO : {}", postDTO);
 
-        Post newPost = postService.create(post);
+        PostDTO newPost = postService.save(postDTO);
         return ResponseEntity.created(new URI("/api/post/" + newPost.getId())).body(newPost);
     }
 
     /**
      * PUT /posts : Updates an existing Post.
      *
-     * @param post the post to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated post
+     * @param postDTO the post to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated post, or with status 400 (Bad Request) if the post has already an ID
      */
     @PutMapping
-    public ResponseEntity<Post> updatePost(@Valid @RequestBody Post post) {
-        log.debug("REST request to update Post : {}", post);
-
-        Optional<Post> updatedPost = postService.update(post);
-
-        return ResponseUtil.wrapOrNotFound(updatedPost);
+    public ResponseEntity<PostDTO> updatePost(@Valid @RequestBody PostDTO postDTO) {
+        log.debug("REST request to update postDTO : {}", postDTO);
+        return ResponseUtil.wrapOrBadRequest(Optional.ofNullable(postService.save(postDTO)));
     }
 
     /**
@@ -101,7 +103,7 @@ public class PostController {
     }
 }
 
-
+// http://websystique.com/spring-boot/spring-boot-rest-api-example/
 
 //    Hacer con hateoas
 //   https://github.com/jonyfs/credit-card-api/tree/master/src/main/java/br/com/jonyfs/credit/card/api
@@ -110,3 +112,11 @@ public class PostController {
 
 // Test a nivel de integracion:
 //      https://github.com/ryanmccormick/spring-boot-rest-best-practices/blob/master/src/test/java/com/example/integration/contacts/UpdateContactsTest.java
+
+// Ejemplos con jHipster
+// - Hostel:  https://github.com/benoyprakash/java-hostel/tree/master/JHipster-hostel/src/main/java/com/hostel/web/rest
+// - https://github.com/ivangsa/jhipster-mongodb-sample-projects/blob/master/jhipster-mongodb-with-dto-pagination/src/main/java/com/mycompany/myapp/web/rest/PaymentDetailsResource.java
+
+// Pendiente:
+//  - Testear las validaciones
+//  - Crear interface de service
