@@ -1,0 +1,15 @@
+#Lo hacemos aqui porque este lo queremos solo para local.
+
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: native
+
+## Por defecto lo busca en classpath:/config
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: file:///Users/Tente/PROYECTOS/java/Mircorservices/workspace/EMAMS/config-service/src/main/resources/config
