@@ -13,6 +13,9 @@
         <module>user-service</module>
         <module>post-service</module>
 		<module>config-service</module>
+		<module>discovery-service</module>
+
+		<module>demo-employee-service</module>
     </modules>
 
     
