@@ -1,0 +1,47 @@
+
+- URL TEST
+  --------
+  Obtgener una organización con listado de departamento y con listado de empleados. Llamadas entre microservicios:
+  http://localhost:8060/organization/1/with-departments-and-employees
+
+
+
+
+- Capa Edge Server o Proxy:
+  -------------------------
+
+  En esta capa se esta usando hasta ahora Zuul, pero para la versión nueva de Spring Clound 2 y Spring Boot 2, Spring ha creado un nuevo framework llamado Spring Clud Geteavay, puede considerarse un sucesor del proyecto Spring Cloud Netflix Zuul. 
+
+  Spring Cloud Gateway se basa en Spring Framework 5, Project Reactor (permitiendo la integración con Spring WebFlux) y Spring Boot 2 utilizando API sin bloqueo, teniendo un rendimiento superior.
+
+  Mas info en:  https://blog.bi-geek.com/arquitecturas-microservicios-spring-cloud-gateway/
+                https://dzone.com/articles/spring-cloud-gateway-configuring-a-simple-route
+                https://www.baeldung.com/spring-cloud-gateway
+
+  En un principio utilizaremos Zuul.
+
+
+  - Capa Hystrix
+    ------------
+    http://nphumbert.github.io/blog/2017/07/23/setup-a-circuit-breaker-with-hystrix/
+
+    https://piotrminkowski.wordpress.com/2017/05/15/part-3-creating-microservices-circuit-breaker-fallback-and-load-balancing-with-spring-cloud/
+
+    https://github.com/Qkyrie/spring-boot-netflix-example/tree/part3_feign/api-service/src/main/java/com/deswaef/netflixexamples/api/notifications/client
+
+
+
+ - Proyectos completos
+   -------------------
+
+   - https://piotrminkowski.wordpress.com/2018/04/26/quick-guide-to-microservices-with-spring-boot-2-0-eureka-and-spring-cloud/
+     Es muy basico, pero seguimos para crear los primeros proyectos
+
+
+   - https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do 
+     Proyecto completo con Spring Boot 2, y Docker.
+     (Tener encuenta para versiones futuras) 
+
+
+   - https://github.com/rohitghatol/spring-boot-microservices
+     Es una version antigua, pero explica muy bien el proyecto en github. Tiene un acceso por web y logir por OAth 2

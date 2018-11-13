@@ -22,7 +22,7 @@ public class EmployeeController {
 		LOGGER.info("Employee add: {}", employee);
 		return repository.add(employee);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Employee findById(@PathVariable("id") Long id) {
 		LOGGER.info("Employee find: id={}", id);
