@@ -16,6 +16,9 @@
 		<module>discovery-service</module>
 		<module>proxy-service</module>
 
+		<module>monitoring</module>
+		<module>turbine-stream-service</module>
+
 		<module>demo-employee-service</module>
 		<module>demo-department-service</module>
 		<module>demo-organization-service</module>

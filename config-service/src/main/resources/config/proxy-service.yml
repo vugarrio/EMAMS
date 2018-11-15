@@ -10,17 +10,31 @@ eureka:
 #  pattern:
 #    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
 
+
 zuul:
   routes:
     department:
       path: /department/**
       serviceId: demo-department-service
-      stripPrefix: false
     employee:
       path: /employee/**
       serviceId: demo-employee-service
-      stripPrefix: false
     organization:
       path: /organization/**
       serviceId: demo-organization-service
-      stripPrefix: false
+
+
+
+hystrix:
+  command:
+    service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+    circuitBreaker:
+      requestVolumeThreshold: 3
+      errorThresholdPercentage: 50
+
+
+

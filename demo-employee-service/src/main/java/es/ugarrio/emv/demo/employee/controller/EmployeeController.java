@@ -43,6 +43,10 @@ public class EmployeeController {
 	
 	@GetMapping("/organization/{organizationId}")
 	public List<Employee> findByOrganization(@PathVariable("organizationId") Long organizationId) {
+//		int num = 1;
+//		if (num == 1) {
+//			throw new RuntimeException();
+//		}
 		LOGGER.info("Employee find: organizationId={}", organizationId);
 		return repository.findByOrganization(organizationId);
 	}

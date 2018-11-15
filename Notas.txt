@@ -1,8 +1,24 @@
 
 - URL TEST
   --------
+
+  Proxy Zuul:  Empleados:  http://localhost:8060
+
   Obtgener una organización con listado de departamento y con listado de empleados. Llamadas entre microservicios:
   http://localhost:8060/organization/1/with-departments-and-employees
+
+  Empleados:  http://localhost:8060/employee/
+
+  Departamentos: http://localhost:8060/department/
+
+  Eureka:  http://localhost:8761/
+
+  Swagger:  http://localhost:8060/swagger-ui.html
+
+  Hystrix Dashboard:  http://localhost:9000/hystrix  (No funciona)
+
+
+- Arrancar en el orden:  1) config-service  2) discovery-service   3) proxy-service 4) el resto
 
 
 
@@ -30,6 +46,15 @@
     https://github.com/Qkyrie/spring-boot-netflix-example/tree/part3_feign/api-service/src/main/java/com/deswaef/netflixexamples/api/notifications/client
 
 
+    Para añadir CircuitBreaker a un Servicio se siguen los siguientes pasos:
+
+        http://nphumbert.github.io/blog/2017/07/23/setup-a-circuit-breaker-with-hystrix/
+
+    Test:  https://www.adictosaltrabajo.com/2017/10/09/spring-cloud-hystrix-resilient-services/
+
+
+
+
 
  - Proyectos completos
    -------------------
@@ -38,10 +63,14 @@
      Es muy basico, pero seguimos para crear los primeros proyectos
 
 
-   - https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do 
-     Proyecto completo con Spring Boot 2, y Docker.
+   - https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do   !!!!! MUY BUENO Y COMPLETO
+     Proyecto completo con Spring Boot 2, Docker, AOth2 y mongodb
      (Tener encuenta para versiones futuras) 
 
 
    - https://github.com/rohitghatol/spring-boot-microservices
      Es una version antigua, pero explica muy bien el proyecto en github. Tiene un acceso por web y logir por OAth 2
+
+
+   - ACTUAL, MUY BUENO. SON 6 PARTES
+     https://dzone.com/users/230813/sivaprasad.html
